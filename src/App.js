@@ -1,6 +1,25 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
+
+  const [jogadorList, setJogadorList] = useState([{}])
+  const [nome, setNome] = useState('')
+  const [idade, setIdade] = useState(0)
+  const [time, setTime] = useState('')
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/jogadores')
+    .then(res => {
+      console.log(res.data)
+    }).catch(
+      (err) => {console.log(err)}
+    )
+  })
+
+
   return (
     <div className='container'>
       <div
