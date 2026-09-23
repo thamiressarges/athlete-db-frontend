@@ -14,11 +14,11 @@ function Jogador(props){
         <div>
             <p>
                 <span className="fw-bold">
-                    {props.jogador.nome} - {props.jogaodr.idade} - {props.jogador.time}
+                    {props.jogador.nome} - {props.jogador.idade} - {props.jogador.time}
                 </span>
                 <button 
-                    onClick={excluiJogador}
-                    className="btn btn-danger"
+                    onClick={() => excluiJogador(props.jogador.id)}
+                    className="btn btn-sm"
                 >
                     <span className="badge rounded-pill bg-danger">X</span>
                 </button>

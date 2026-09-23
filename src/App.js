@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import JogadorList from './components/jogadorList';
 
 function App() {
 
@@ -13,7 +14,8 @@ function App() {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/jogadores')
     .then(res => {
-      console.log(res.data)
+      console.log("Jogador Cadastrado")
+      setJogadorList(res.data)
     }).catch(
       (err) => {console.log(err)}
     )
@@ -55,6 +57,7 @@ function App() {
           </span>
           <h5 className='card text-center text-white bg-dark mb-4 pb-1'>Lista de Jogadores</h5>
           <div>
+            <JogadorList jogadorList={jogadorList}/>
           </div>
         </div>
         <h6 className='card text-center text-light bg-success pb-1'>&copy; Thamires Sarges - 2026</h6>
