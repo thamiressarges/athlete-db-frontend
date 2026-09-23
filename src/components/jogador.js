@@ -1,0 +1,30 @@
+import React from "react";
+import axios from "axios";
+
+function Jogador(props){
+
+    const excluiJogador = (id) => {
+        axios.delete(`http://127.0.0.1:8000/jogadores/${id}`)
+        .then(res => {
+            alert('Jogador removido com sucesso')
+        })
+    }
+
+    return(
+        <div>
+            <p>
+                <span className="fw-bold">
+                    {props.jogador.nome} - {props.jogaodr.idade} - {props.jogador.time}
+                </span>
+                <button 
+                    onClick={excluiJogador}
+                    className="btn btn-danger"
+                >
+                    <span className="badge rounded-pill bg-danger">X</span>
+                </button>
+            </p>
+        </div>
+    )
+}
+
+export default Jogador;
