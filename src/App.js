@@ -19,6 +19,21 @@ function App() {
     )
   })
 
+  const adicionaJogador = () => {
+    const jogador = {
+      'nome': nome,
+      'idade': idade,
+      'time': time
+    }
+
+    axios.post('http://127.0.0.1:8000/jogadores', jogador)
+    .then(res => {
+      alert(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   return (
     <div className='container'>
@@ -33,14 +48,13 @@ function App() {
         <div className='card-body text-center'>
           <h5 className='card text-center text-white bg-dark mb-2 pb-1'>Cadastro Jogador</h5>
           <span className='card-text'>
-            <input className='mb-2 form-control' placeholder='Informe o nome'/>
-            <input className='mb-2 form-control' placeholder='Informe a idade'/>
-            <input className='mb-2 form-control' placeholder='Informe o time'/>
-            <button className='btn btn-outline-success mb-4'>Cadastrar</button>
+            <input onChange={e => setNome(e.target.value)} className='mb-2 form-control' placeholder='Informe o nome'/>
+            <input onChange={e => setIdade(e.target.value)} className='mb-2 form-control' placeholder='Informe a idade'/>
+            <input onChange={e => setTime(e.target.value)} className='mb-2 form-control' placeholder='Informe o time'/>
+            <button onClick={adicionaJogador} className='btn btn-outline-success mb-4'>Cadastrar</button>
           </span>
           <h5 className='card text-center text-white bg-dark mb-4 pb-1'>Lista de Jogadores</h5>
           <div>
-
           </div>
         </div>
         <h6 className='card text-center text-light bg-success pb-1'>&copy; Thamires Sarges - 2026</h6>
