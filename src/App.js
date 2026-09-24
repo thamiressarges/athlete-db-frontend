@@ -11,6 +11,7 @@ function App() {
   const [idade, setIdade] = useState(0)
   const [time, setTime] = useState('')
   const [id, setId] = useState('')
+  const [textoBotao, setTextoBotao] = useState('Cadastrar')
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/jogadores')
@@ -22,23 +23,41 @@ function App() {
     )
   },)
 
-  const adicionaJogador = () => {
+  const adicionaJogador = (jogador) => {
+    axios.post('http://127.0.0.1:8000/jogadores', jogador)
+      .then(res => {
+        alert("Jogador Cadastrado")
+        setNome('')
+        setIdade(0)
+        setTime('')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const atualizaJogador = (jogador) => {
+    axios.put(`http://127.0.0.1:8000/jogadores/${id}`, jogador)
+    .then(res => {
+      alert('Jogador atualizado com sucesso')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  const adicionaAtualizaJogador = () => {
     const jogador = {
       'nome': nome,
       'idade': idade,
       'time': time
     }
 
-    axios.post('http://127.0.0.1:8000/jogadores', jogador)
-    .then(res => {
-      alert("Jogador Cadastrado")
-      setNome('')
-      setIdade(0)
-      setTime('')
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    if(id !== '') {
+      atualizaJogador(jogador)
+    }else {
+      adicionaJogador(jogador)
+    }
   }
 
   return (
@@ -57,7 +76,7 @@ function App() {
             <input value={nome} onChange={e => setNome(e.target.value)} className='mb-2 form-control' placeholder='Informe o nome'/>
             <input value={idade} onChange={e => setIdade(e.target.value)} className='mb-2 form-control' placeholder='Informe a idade'/>
             <input value={time} onChange={e => setTime(e.target.value)} className='mb-2 form-control' placeholder='Informe o time'/>
-            <button onClick={adicionaJogador} className='btn btn-outline-success mb-4'>Cadastrar</button>
+            <button onClick={adicionaAtualizaJogador} className='btn btn-outline-success mb-4'>{textoBotao}</button>
           </span>
           <h5 className='card text-center text-white bg-dark mb-4 pb-1'>Lista de Jogadores</h5>
           <div>
@@ -67,6 +86,7 @@ function App() {
               setNome={setNome}
               setIdade={setIdade}
               setTime={setTime}
+              setTextoBotao={setTextoBotao}
             />
           </div>
         </div>

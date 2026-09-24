@@ -15,6 +15,7 @@ function JogadorList(props) {
                                 setNome={props.setNome}
                                 setIdade={props.setIdade}
                                 setTime={props.setTime}
+                                setTextoBotao={props.setTextoBotao}
                             />)
                         }
                     )
