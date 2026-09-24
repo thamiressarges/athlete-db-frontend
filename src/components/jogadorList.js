@@ -8,7 +8,14 @@ function JogadorList(props) {
                 {
                     props.jogadorList.map(
                         (jogador,indice) => {
-                            return (<Jogador jogador={jogador} key={indice} />)
+                            return (<Jogador 
+                                jogador={jogador} 
+                                 key={indice} 
+                                setId={props.setId}
+                                setNome={props.setNome}
+                                setIdade={props.setIdade}
+                                setTime={props.setTime}
+                            />)
                         }
                     )
                 }

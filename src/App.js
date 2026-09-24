@@ -10,16 +10,17 @@ function App() {
   const [nome, setNome] = useState('')
   const [idade, setIdade] = useState(0)
   const [time, setTime] = useState('')
+  const [id, setId] = useState('')
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/jogadores')
     .then(res => {
-      console.log("Jogador Cadastrado")
+      console.log(res.data)
       setJogadorList(res.data)
     }).catch(
       (err) => {console.log(err)}
     )
-  })
+  },)
 
   const adicionaJogador = () => {
     const jogador = {
@@ -30,7 +31,10 @@ function App() {
 
     axios.post('http://127.0.0.1:8000/jogadores', jogador)
     .then(res => {
-      alert(res)
+      alert("Jogador Cadastrado")
+      setNome('')
+      setIdade(0)
+      setTime('')
     })
     .catch((err) => {
       console.log(err)
@@ -50,14 +54,20 @@ function App() {
         <div className='card-body text-center'>
           <h5 className='card text-center text-white bg-dark mb-2 pb-1'>Cadastro Jogador</h5>
           <span className='card-text'>
-            <input onChange={e => setNome(e.target.value)} className='mb-2 form-control' placeholder='Informe o nome'/>
-            <input onChange={e => setIdade(e.target.value)} className='mb-2 form-control' placeholder='Informe a idade'/>
-            <input onChange={e => setTime(e.target.value)} className='mb-2 form-control' placeholder='Informe o time'/>
+            <input value={nome} onChange={e => setNome(e.target.value)} className='mb-2 form-control' placeholder='Informe o nome'/>
+            <input value={idade} onChange={e => setIdade(e.target.value)} className='mb-2 form-control' placeholder='Informe a idade'/>
+            <input value={time} onChange={e => setTime(e.target.value)} className='mb-2 form-control' placeholder='Informe o time'/>
             <button onClick={adicionaJogador} className='btn btn-outline-success mb-4'>Cadastrar</button>
           </span>
           <h5 className='card text-center text-white bg-dark mb-4 pb-1'>Lista de Jogadores</h5>
           <div>
-            <JogadorList jogadorList={jogadorList}/>
+            <JogadorList 
+              jogadorList={jogadorList}
+              setId={setId}
+              setNome={setNome}
+              setIdade={setIdade}
+              setTime={setTime}
+            />
           </div>
         </div>
         <h6 className='card text-center text-light bg-success pb-1'>&copy; Thamires Sarges - 2026</h6>
